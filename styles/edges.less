@@ -1,0 +1,119 @@
+#menu, #sidebar {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: @color-primary;
+    transition: margin .5s;
+    
+    .menu-toggles, .sidebar-toggles {
+        position: absolute;
+        top: 10px;
+    }
+    
+    .menu-toggle, .sidebar-toggle {
+        position: absolute;
+        color: @color;
+        fill: @color;
+        transition: color .2s, fill .2s;
+        
+        &:hover {
+            color: @color-primary;
+            fill: @color-primary;
+            transition: color .2s, fill .2s;
+        }
+        
+        &:first-child {
+            z-index: 1002;
+            opacity: 1;
+            transition: opacity .5s;
+        }
+        
+        &:last-child {
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity .5s;
+        }
+    }
+}
+
+    #menu {
+        left: 0;
+        margin-left: -250px;
+        
+        .menu-toggles {
+            right: -10px;
+        }
+    }
+    
+    #sidebar {
+        right: 0;
+        margin-right: -250px;
+        
+        .sidebar-toggles {
+            left: -50px;
+        }
+    }
+    
+    body {
+        &.menu {
+            #menu {
+                margin-left: 0;
+                transition: margin .5s;
+            
+                .menu-open {
+                    z-index: 1001;
+                    opacity: .2;
+                    transition: opacity .5s;
+                }
+                
+                .menu-close {
+                    z-index: 1002;
+                    opacity: 1;
+                    transition: opacity .5s;
+                }
+            }
+            
+            #header {
+                margin-left: 250px;
+                transition: margin .5s;
+            }
+            
+            #page {
+                margin-left: 250px;
+                transition: margin .5s;
+            }
+        }
+        
+        &.sidebar {
+            #sidebar {
+                margin-right: 0;
+                transition: margin .5s;
+            
+                .sidebar-open {
+                    z-index: 1001;
+                    opacity: .2;
+                    transition: opacity .5s;
+                }
+                
+                .sidebar-close {
+                    z-index: 1002;
+                    opacity: 1;
+                    transition: opacity .5s;
+                }
+            }
+            
+            #header {
+                margin-left: -250px;
+                margin-right: 250px;
+                transition: margin .5s;
+            }
+            
+            #page {
+                margin-left: -250px;
+                margin-right: 250px;
+                transition: margin .5s;
+            }
+        }
+    }

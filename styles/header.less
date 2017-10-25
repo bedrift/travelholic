@@ -1,0 +1,92 @@
+#header {
+    z-index: 900;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.14);
+    box-shadow: 1px 1px transparent;
+    transition: box-shadow .2s, margin .5s, height .5s;
+    padding: 0 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    
+    .header-brand {
+        display: inline-block;
+        float: left;
+        font-family: @font-header;
+        
+        a {
+            display: inline-block;
+            white-space: nowrap;
+            padding: 13px 10px;
+        }
+        
+        .header-brand-logo {
+            display: inline-block;
+            float: left;
+        }
+        
+        .header-brand-name {
+            display: inline-block;
+            float: left;
+            font-size: 22px;
+            color: @color-primary;
+            padding: 5px 0 0 5px;
+        }
+    }
+    
+    .header-nav {
+        display: inline-block;
+        float: left;
+        padding: 23px 0 0 10px;
+        
+        ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            white-space: normal;
+            
+            @media @mobile {
+                display: none;
+            }
+            
+            li {
+                display: inline-block;
+                list-style: none;
+                font-size: @fontsize-menu;
+                margin: 0 15px;
+                text-transform: uppercase;
+                
+                a {
+                    display: inline-block;
+                    white-space: nowrap;
+                    font-weight: @bold;
+                    text-decoration: none;
+                    color: @color-light;
+                    transition: color .5s;
+                    
+                    &.active, &:hover {
+                        color: @color-primary !important;
+                        transition: color .2s;
+                    }
+                }
+            }
+        }
+    }
+    
+    @media @desktop {
+        &.is-scrolled {
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
+        }
+    }
+    
+    &:after {
+        display: block;
+        content: "";
+        clear: both;
+    }
+}

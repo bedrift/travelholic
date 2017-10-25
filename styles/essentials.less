@@ -1,0 +1,63 @@
+html {
+    box-sizing: border-box;
+}
+
+    *, *:before, *::before, *:after, *::after {
+        box-sizing: inherit;
+    }
+
+html, body {
+    position: relative;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background: @bgcolor;
+    font-family: @font;
+    color: @color;
+    fill: @color;
+    font-size: @fontsize;
+    line-height: 1;
+}
+
+a {
+    display: inline-block;
+    font-size: inherit;
+    color: inherit;
+    text-decoration: none;
+    transition: color .5s;
+}
+
+    a:hover {
+        color: @color-primary;
+        transition: color .5s;
+    }
+    
+p {
+    margin: 0 0 10px 0;
+    line-height: 150%;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+    font-family: @font-header;
+    font-weight: normal;
+    padding: 0;
+}
+
+h1 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+
+.rotate90 {transform:rotate(90deg)}
+.rotate180 {transform:rotate(180deg)}
+.rotate270 {transform:rotate(270deg)}
+.rotate360 {transform:rotate(0deg)}
