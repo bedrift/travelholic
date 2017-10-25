@@ -1,3 +1,6 @@
+@smartphones: ~"only screen and (max-width: 479px)";
+@tablets: ~"only screen and (min-width: 768px) and (max-width: 959px)";
+
 @bgcolor: #e9ebee;
 @font: Roboto, sans-serif;
 @font-header: Raleway, sans-serif;
@@ -17,13 +20,14 @@
 @list-width: 460px;
 @list-page-margin: 20px;
 @page-padding: 60px;
+@content-width: (@page-max-width - @list-width - 2 * @page-padding - @list-page-margin);
 @footer-height: 40px;
 @page-max-width: 1400px;
 @footer-top: (@footer-height - @footer-fontsize) / 2;
 @list-page-margin-negative: 0 - @list-page-margin;
 @page-padding-negative: 0 - @page-padding;
 @footer-height-negative: 0 - @footer-height;
-@footer-border-right: @page-max-width - @page-padding;
+@footer-border-max: ~"(max-width: 1355px)";
 
 @import "./normalize";
 @import "./essentials";
@@ -46,9 +50,37 @@
     transition: margin .5s;
     
     &.list {
-        #footer {
-            margin-left: @list-width;
+        #toolbox {
+            .toolbox-menu {
+                opacity: 1;
+                transition: opacity .5s;
+            }
+        }
+        
+        #list {
+            width: @list-width;
+            border-left: 1px solid rgba(0,0,0,.14);
+            border-right: 1px solid rgba(0,0,0,.14);
+            transition: width .5s, border .5s, margin .5s;
+        }
+        
+        #content {
+            margin-left: @list-width + @list-page-margin;
             transition: margin .5s;
+        }
+        
+        #footer {
+            margin: 0 @page-padding-negative;
+            margin-left: @list-width;
+            max-width: (@page-max-width - @list-width - @page-padding * 2);
+            border-left: 0;
+            transition: margin .5s, border .5s;
+        
+            @media @footer-border-max {
+                & {
+                    border-right: 0;
+                }
+            }
         }
     }
     
@@ -106,6 +138,8 @@
                 position: absolute;
                 top: @header-height + 10px;
                 left: 0 - @page-padding + 10px;
+                opacity: 0;
+                transition: opacity .5s;
             }
             
             .toolbox-menu-item {
@@ -149,6 +183,7 @@
             .toolbox-container {
                 padding-top: @header-height;
                 height: 100%;
+                overflow: hidden;
             }
         }
         
@@ -158,13 +193,12 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: @list-width;
-            border-left: 1px solid rgba(0,0,0,.14);
-            border-right: 1px solid rgba(0,0,0,.14);
+            width: 0;
+            border: 0;
             overflow: hidden;
             overflow-y: auto;
             background-color: #fff;
-            transition: margin .5s;
+            transition: margin .5s, width .5s, border .5s;
             
             .list-search {
                 position: absolute;
@@ -222,9 +256,10 @@
         }
             
             #content {
-                margin-left: @list-width + @list-page-margin;
+                margin-left: 0;
                 transition: margin .5s;
                 padding: 25px 0 20px 0;
+                max-width: @content-width;
                 
                 .content-container {
                     background-color: #fff;
@@ -279,19 +314,15 @@
             z-index: 300;
             position: relative;
             height: @footer-height;
-            max-width: (@page-max-width - @list-width - @page-padding * 2);
-            margin: 0 @page-padding-negative;
+            /*margin: 0 @page-padding-negative;*/
+            max-width: @content-width;
             padding: @footer-top @page-padding 0 @list-page-margin;
             overflow: hidden;
             background-color: #fff;
-            border-top: 1px solid rgba(0,0,0,.14);
+            border: 1px solid rgba(0,0,0,.14);
+            border-bottom: 0;
             font-size: @footer-fontsize;
+            transition: border .5s, margin .5s;
         }
-        
-            @media (min-width: 1355px) {
-                #footer {
-                    border-right: 1px solid rgba(0,0,0,.14);
-                }
-            }
 
 @import "./sign-in";

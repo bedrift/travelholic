@@ -22,3 +22,4 @@ sudo service apache2 restart
 bash setup/composer && mv composer.phar src/composer
 
 cd src && php composer install
+cd src && npm install

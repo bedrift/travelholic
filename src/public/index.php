@@ -5,7 +5,6 @@ ini_set("display_errors",1);
 
 require '../vendor/autoload.php';
 
-/*
 $dev = true;
 
 if ($dev) {
@@ -15,23 +14,30 @@ if ($dev) {
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \App\Travelholic;
 
 $app = new \Slim\App([
     'settings' => [
-        'displayErrorDetails' => $dev
+        'displayErrorDetails' => $dev,
+        'addContentLengthHeader' => false
     ]
 ]);
 
-$app->get('/', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello World");
+$container = $app->getContainer();
 
-    return $response;
-});
+$container['logger'] = function($c) {
+    $logger = new \Monolog\Logger('my_logger');
+    $file_handler = new \Monolog\Handler\StreamHandler("../../logs/app.log");
+    $logger->pushHandler($file_handler);
+    return $logger;
+};
 
-$app->get('/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
+$app->get('/[{url:.*}]', function (Request $request, Response $response, $args) {
+    $test = new Travelholic();
+    
+    $response->getBody()->write("Hello World: " . $test->output() . " - " . $args["url"]);
+    
+    //$this->logger->addInfo("Something interesting happened");
 
     return $response;
 });
@@ -39,7 +45,6 @@ $app->get('/{name}', function (Request $request, Response $response) {
 $app->run();
 
 exit();
-*/
 
 // variables (from CloudFront header)
 $country    = "dk";
@@ -86,11 +91,7 @@ function less($folder,$file,$output = false) {
     
     $cache  = "assets/" . $hash . ".css";
     
-    if (file_exists($cache) == false || filesize($cache) == false) {
-        touch($cache);
-        
-        exec("lessc --compress --clean-css --rootpath=/styles " . $folder . "/" . $file . " " . $cache);
-    }
+    if (file_exists($cache) == false || filesize($cache) == false) exec("lessc --compress --clean-css --rootpath=/styles " . $folder . "/" . $file . " " . $cache);
     
     if ($output) return file_get_contents($cache);
     
@@ -152,7 +153,7 @@ function js($path,$output = false) {
 // load content
 ob_start();
 
-include("templates/places.php");
+include("templates/main.php");
 
 $content = ob_get_contents();
 
