@@ -1,5 +1,45 @@
 <?php
 
+require '../vendor/autoload.php';
+
+    error_reporting(E_ALL);
+    ini_set("display_errors",1);
+/*
+$dev = true;
+
+if ($dev) {
+    error_reporting(E_ALL);
+    ini_set("display_errors",1);
+}
+
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+
+$app = new \Slim\App([
+    'settings' => [
+        'displayErrorDetails' => $dev
+    ]
+]);
+
+$app->get('/', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write("Hello World");
+
+    return $response;
+});
+
+$app->get('/{name}', function (Request $request, Response $response) {
+    $name = $request->getAttribute('name');
+    $response->getBody()->write("Hello, $name");
+
+    return $response;
+});
+
+$app->run();
+
+exit();
+*/
+
 // variables (from CloudFront header)
 $country    = "dk";
 $language   = "da"; // skal kunne overskrives af URL afhængigt sprog
@@ -29,7 +69,7 @@ function css($url,$output = false) {
     
     $cache          = "assets/" . $hash . ".css";
     
-    if (file_exists($cache) == false) file_put_contents($cache,$content);
+    if (file_exists($cache) == false || filesize($cache) == false) file_put_contents($cache,$content);
     
     return "/" . $cache;
 }
@@ -45,7 +85,7 @@ function less($folder,$file,$output = false) {
     
     $cache  = "assets/" . $hash . ".css";
     
-    if (file_exists($cache) == false) {
+    if (file_exists($cache) == false || filesize($cache) == false) {
         touch($cache);
         
         exec("lessc --compress --clean-css --rootpath=/styles " . $folder . "/" . $file . " " . $cache);
@@ -61,10 +101,15 @@ function js($path,$output = false) {
     $hash   = substr(md5_file($path),0,10);
     $cache  = "assets/" . $hash . ".js";
     
-    if (file_exists($cache) == false) {
-        touch($cache);
+    if (file_exists($cache) == false || filesize($path) == false) {
+        $code       = file_get_contents($path);
         
-        exec("google-closure-compiler-js --compilationLevel=ADVANCED " . $path . " > " . $cache);
+        $compiler   = new GoogleClosureCompiler\Compiler;
+        $response   = $compiler->setJsCode($code)->compile();
+        
+        $response   = ($response && $response->isWithoutErrors())? $response->getCompiledCode() : $code;
+        
+        file_put_contents($cache,$response);
     }
     
     if ($output) {
@@ -78,11 +123,20 @@ function js($path,$output = false) {
             $hash   = substr(md5_file($path),0,10);
             $cache  = "assets/" . $hash . ".js";
             
-            if (file_exists($cache) == false) {
-                touch($cache);
+            if (file_exists($cache) == false || filesize($path) == false) {
+                $code       = file_get_contents($path);
                 
-                // --compilationLevel=ADVANCED
-                exec("google-closure-compiler-js " . $path . " > " . $cache);
+                $compiler   = new GoogleClosureCompiler\Compiler;
+                $response   = $compiler->setJsCode($code)->compile();
+                
+                if ($response && $response->isWithoutErrors()) {
+                    $response = $response->getCompiledCode();
+                
+                } else {
+                    $response = $code;
+                }
+                
+                file_put_contents($cache,$response);
             }
             
             return "/" . $cache;
@@ -146,8 +200,8 @@ $output = preg_replace_callback("#\{([a-z0-9\.-]+)((?:\:[a-z0-9\.-]+)+)?(?:\{(.+
     
     $placeholder            = $m[0];
     $handler                = $m[1];
-    $options                = array_flip(explode(":",substr($m[2],1)));
-    $default                = $m[3];
+    $options                = (isset($m[2]) && $m[2] == true)? array_flip(explode(":",substr($m[2],1))) : [];
+    $default                = (isset($m[3]))? $m[3] : null;
     
     if (preg_match("#^brand((?:\.[a-z0-9-]+)+)$#",$handler,$m)) {
         $handler            = substr($m[1],1);
@@ -181,19 +235,33 @@ $output = preg_replace_callback("#\{([a-z0-9\.-]+)((?:\:[a-z0-9\.-]+)+)?(?:\{(.+
         }
     }
     
-    return ($default)? $default : $placeholder;
+    return $default ?? $placeholder;
 },$output);
 
 // optimize html
-$hash   = md5($output); // skal være allerede inden placeholders og trim
-$cache  = "/tmp/" . $hash . ".html";
-$html   = "/tmp/" . $hash . ".min.html";
+$hash   = md5($output);
+$cache  = "/tmp/frontend." . $hash . ".html";
 
-if (file_exists($cache) == false) file_put_contents($cache,$output);
-
-exec("html-minifier --html5 --remove-tag-whitespace --collapse-whitespace --collapse-inline-tag-whitespace --collapse-boolean-attributes " . $cache . " > " . $html);
-
-$output = file_get_contents($html);
+if (file_exists($cache) == false || filesize($cache) == false) {
+    $minimizer = new voku\helper\HtmlMin();
+    
+    $minimizer->doRemoveComments();
+    $minimizer->doSumUpWhitespace();
+    $minimizer->doRemoveWhitespaceAroundTags();
+    $minimizer->doOptimizeAttributes();
+    $minimizer->doRemoveDeprecatedAnchorName();
+    $minimizer->doRemoveDeprecatedScriptCharsetAttribute();
+    $minimizer->doRemoveDeprecatedTypeFromScriptTag();
+    $minimizer->doRemoveDeprecatedTypeFromStylesheetLink();
+    $minimizer->doSortCssClassNames();
+    $minimizer->doRemoveSpacesBetweenTags();
+    $minimizer->doOptimizeViaHtmlDomParser();
+    
+    $output = $minimizer->minify($output);
+    
+    file_put_contents($cache,$output);
+}
+else $output = file_get_contents($cache);
 
 // output
 echo $output;

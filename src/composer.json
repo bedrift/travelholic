@@ -1,0 +1,7 @@
+{
+    "require": {
+        "slim/slim": "^3.0",
+        "machy8/google-closure-compiler" : "^1.0",
+        "voku/html-min": "^1.0"
+    }
+}

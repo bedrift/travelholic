@@ -4,8 +4,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "google-closure-compiler-js": "*",
-    "less-plugin-clean-css" : "*",
-    "html-minifier" : "*"
+    "less-plugin-clean-css" : "*"
   }
 }
