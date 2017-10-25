@@ -19,6 +19,6 @@ sudo a2enmod php7.1
  
 sudo service apache2 restart
 
-bash setup/composer && mv setup/composer.phar src/composer
+bash setup/composer && mv composer.phar src/composer
 
 cd src && php composer install
