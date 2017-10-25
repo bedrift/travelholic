@@ -21,4 +21,4 @@ sudo service apache2 restart
 
 bash setup/composer && mv setup/composer.phar src/composer
 
-npm install
+cd src && php composer install
