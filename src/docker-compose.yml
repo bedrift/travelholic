@@ -1,13 +1,12 @@
-version: '3'
+version: 0.2
 
-services:
-    slim:
-        image: php:7-alpine
-        working_dir: /var/www
-        command: php -S 0.0.0.0:8080 -t public public/index.php
-        environment:
-            docker: "true"
-        ports:
-            - 8080:8080
-        volumes:
-            - .:/var/www
+pre_build:
+    commands:
+        # 
+build:
+    commands:
+        - php composer install
+    
+post_build:
+    commands:
+        - php -S 0.0.0.0:8080 -t public public/index.php
