@@ -12,7 +12,7 @@ require("../vendor/autoload.php");
 $app = (new \App\Initiate)([
     "dev" => $dev,
     "language" => "en",
-    "languages" => ['en','da'],
+    "languages" => ['en','da'], // supported languages
     "country" => "dk", // CloudFront-Viewer-Country (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
     "device" => [
         "mobile" => false, // CloudFront-Is-Mobile-Viewer

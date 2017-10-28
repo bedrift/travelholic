@@ -39,7 +39,7 @@
 
 $menu = (function() {
     return "
-                    <li><a href='#'>{menu.deals{Travel deals}}</a></li>
+                    <li><a href='#'>{menu.deals{Deals}}</a></li>
                     <li><a href='#' class='active'>{menu.places{Places}}</a></li>
                     <li><a href='#'>{menu.accommodations{Accommodations}}</a></li>
                     <li><a href='#'>{menu.restaurants{Eat & drink}}</a></li>
@@ -47,6 +47,8 @@ $menu = (function() {
                     <li><a href='#'>{menu.flights{Flights}}</a></li>
     ";
 })();
+
+echo $menu;
 
 ?>
                 </ul>

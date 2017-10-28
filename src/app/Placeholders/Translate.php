@@ -21,7 +21,7 @@ class Translate {
             "menu" => [
                 "children" => [
                     "places" => [
-                        "da" => "Steder"
+                        "da" => "Rejsemål"
                     ],
                     "accommodations" => [
                         "da" => "Ophold"

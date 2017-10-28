@@ -94,7 +94,7 @@
                     $('.header-nav button')
                         .show();
                         
-                    $(this).data('header-navn-button-resize-triggered',true);
+                    if (!$(this).data('header-navn-button-resize-triggered')) $(this).data('header-navn-button-resize-triggered',true);
                 }
                 else if ($(this).data('header-navn-button-resize-triggered')) {
                     $('.header-nav button')
@@ -157,10 +157,14 @@
                 if ($.scrollAdjuster) clearTimeout($.scrollAdjuster);
                 
                 $.scrollAdjuster = setTimeout(function() {
-                    $('#toolbox, #list')
-                        .animate({
-                            top: $(window).scrollTop()
-                        },100);
+                    if ($(window).scrollTop() > 0 || $(this).data('scroll-top-triggered')) {
+                        $('#toolbox, #list')
+                            .animate({
+                                top: $(window).scrollTop()
+                            },100);
+                            
+                        if (!$(this).data('scroll-top-triggered')) $(this).data('scroll-top-triggered',true);
+                    }
                 },300);
             })
             .trigger('scroll');

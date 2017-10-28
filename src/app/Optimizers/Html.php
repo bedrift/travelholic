@@ -9,7 +9,7 @@ class Html {
         $hash   = md5($html);
         $cache  = "/tmp/frontend." . $hash . ".html";
         
-        if (file_exists($cache) == false || filesize($cache) == false) {
+        if (true || file_exists($cache) == false || filesize($cache) == false) {
             $minimizer = new HtmlMin();
             
             $minimizer->doRemoveComments();
@@ -25,6 +25,11 @@ class Html {
             $minimizer->doOptimizeViaHtmlDomParser();
             
             $output = $minimizer->minify($html);
+            
+            $output = preg_replace("#\s+#"," ",$output);
+            $output = str_replace(array("> @","} @"," </style>"),array(">@","}@","</style>"),$output);
+            
+            $output = preg_replace("#( [a-z]+=)\"([^\"'`=<>\s]+?)\"([ >])#i","$1$2$3",$output);
             
             file_put_contents($cache,$output);
         }

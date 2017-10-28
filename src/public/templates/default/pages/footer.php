@@ -25,7 +25,7 @@
     <div id="sign-in">
         <div class="sign-in-cover"></div>
         <div class="sign-in-container">
-            <button type="button" class="btn-primary" onClick="document.body.className=document.body.className.replace(/\s*sign\-in\s*/,' ').trim();document.body.className=document.body.className.replace(/\s*not\-signed\-in\s*/,' ').trim();document.body.className+=' signed-in';">Sign in</button>
+            <button type="button" class="btn-primary">Sign in</button>
         </div>
     </div>
     
