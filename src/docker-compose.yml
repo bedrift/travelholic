@@ -1,8 +1,4 @@
-version: '2'
-
-volumes:
-    logs:
-        driver: local
+version: '3'
 
 services:
     slim:
@@ -15,4 +11,3 @@ services:
             - 8080:8080
         volumes:
             - .:/var/www
-            - logs:/var/www/logs
