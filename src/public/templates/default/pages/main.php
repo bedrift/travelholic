@@ -1,4 +1,10 @@
-<div id="page" class="list">
+<?php
+
+include("header.php");
+
+?>
+
+<div id="page" class="<?=(isset($addlisttopageclass)&&$addlisttopageclass)?"list":""?>">
     <div id="container">
         <div id="toolbox">
             <div class="toolbox-menu">
@@ -96,3 +102,9 @@
         </footer>
     </div>
 </div>
+
+<?php
+
+include("footer.php");
+
+?>

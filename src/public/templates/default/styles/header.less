@@ -1,64 +1,62 @@
 #header {
     z-index: 900;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 60px;
+    width: 100%;
     background-color: #fff;
     border-bottom: 1px solid rgba(0,0,0,.14);
     box-shadow: 1px 1px transparent;
     transition: box-shadow .2s, margin .5s, height .5s;
     padding: 0 60px;
     overflow: hidden;
-    white-space: nowrap;
     
     .header-brand {
-        display: inline-block;
-        float: left;
         font-family: @font-header;
+        width: @header-logo-width;
         
-        a {
+        a.header-link {
             display: inline-block;
             white-space: nowrap;
             padding: 13px 10px;
         }
         
-        .header-brand-logo {
-            display: inline-block;
-            float: left;
-        }
-        
-        .header-brand-name {
-            display: inline-block;
-            float: left;
-            font-size: 22px;
-            color: @color-primary;
-            padding: 5px 0 0 5px;
-        }
+            img.header-brand-logo {
+                display: inline-block;
+            }
+            
+            .header-brand-name {
+                display: inline-block;
+                font-size: 22px;
+                color: @color-primary;
+                padding: 5px 0 0 5px;
+            }
     }
     
     .header-nav {
-        display: inline-block;
-        float: left;
-        padding: 23px 0 0 10px;
+        position: relative;
+        max-width: (@page-max-width - 2 * @page-padding - @header-logo-width);
+        margin-right: 90px;
         
         ul {
-            display: inline-block;
-            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            -webkit-flex-flow: row wrap;
+            justify-content: space-between;
+            margin: 0 40px 0 0;
             padding: 0;
             list-style: none;
             white-space: normal;
-            
-            @media @mobile {
-                display: none;
-            }
             
             li {
                 display: inline-block;
                 list-style: none;
                 font-size: @fontsize-menu;
                 margin: 0 15px;
+                padding: 23px 0 0 0;
                 text-transform: uppercase;
                 
                 a {
@@ -74,6 +72,41 @@
                         transition: color .2s;
                     }
                 }
+            }
+            
+            button {
+                display: none;
+                position: absolute;
+                top: 10px;
+                right: 0;
+                color: @color;
+                fill: @color;
+                transition: color .2s, fill .2s;
+                
+                &:hover {
+                    color: @color-primary;
+                    fill: @color-primary;
+                    transition: color .2s, fill .2s;
+                }
+            }
+        }
+    }
+    
+    .header-icons {
+        position: absolute;
+        top: 10px;
+        right: 70px;
+        white-space: nowrap;
+        
+        button {
+            color: @color;
+            fill: @color;
+            transition: color .2s, fill .2s;
+            
+            &:hover {
+                color: @color-primary;
+                fill: @color-primary;
+                transition: color .2s, fill .2s;
             }
         }
     }

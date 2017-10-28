@@ -1,9 +1,0 @@
-{
-  "name": "Travelholic",
-  "description": "Travelholic frontend",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "less-plugin-clean-css" : "*"
-  }
-}

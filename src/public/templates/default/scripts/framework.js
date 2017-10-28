@@ -87,6 +87,21 @@
                         }
                     });
             });
+            
+        $(window)
+            .on('resize',function() {
+                if ($('.header-nav li:last').position().top > 0) {
+                    $('.header-nav button')
+                        .show();
+                        
+                    $(this).data('header-navn-button-resize-triggered',true);
+                }
+                else if ($(this).data('header-navn-button-resize-triggered')) {
+                    $('.header-nav button')
+                        .hide();
+                }
+            })
+            .trigger('resize');
         
         /* esc handling */
         $(window)

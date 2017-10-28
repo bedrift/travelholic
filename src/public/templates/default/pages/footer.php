@@ -29,6 +29,6 @@
         </div>
     </div>
     
-    <script type="text/javascript"><?php print js("scripts/loader.js",true); ?></script>
+    <script type="text/javascript"><?=$this->js("scripts/loader.js",true); ?></script>
 </body>
 </html>
