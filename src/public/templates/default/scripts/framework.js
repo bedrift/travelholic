@@ -95,13 +95,13 @@
         $(window)
             .on('resize',function() {
                 if ($('.header-nav li:last').position().top > 0) {
-                    $('.header-nav button')
+                    $('.header-nav-list-expand')
                         .show();
                         
                     if (!$(this).data('header-navn-button-resize-triggered')) $(this).data('header-navn-button-resize-triggered',true);
                 }
                 else if ($(this).data('header-navn-button-resize-triggered')) {
-                    $('.header-nav button')
+                    $('.header-nav-list-expand')
                         .hide();
                 }
             })

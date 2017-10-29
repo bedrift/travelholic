@@ -1,5 +1,7 @@
 <?php
 
+header("X-Robots-Tag: noindex"); // remember to remove header in CloudFront prod.
+
 $dev = (file_exists("../../.c9/project.settings"));
 
 if ($dev) {

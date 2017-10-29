@@ -57,21 +57,22 @@ echo $menu;
     <header id="header">
         <div class="header-brand" itemscope="" itemprop="provider" itemtype="http://schema.org/Organization" role="button" tabindex="0">
             <a href="/" class="header-link">
-                <img src="/images/logo.svg" alt="{brand.name}" width="32" itemprop="logo" class="header-brand-logo" align="top">
+                <img src="/images/logo.svg" alt="{brand.name}" width="32" itemprop="logo" class="header-brand-logo">
                 <span class="header-brand-name" itemprop="name">{brand.name}</span>
             </a>
         </div>
         
         <div class="header-nav">
-            <ul class="header-nav-list">
-                <?=$menu?>
-                
-                <button type="button" class="btn-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 512 512">
-                        <path d="M96 288l128 0 0 128-128 0z m13 115l102 0 0-102-102 0z m179 13l0-128 128 0 0 128z m115-115l-102 0 0 102 102 0z m-307-205l128 0 0 128-128 0z m13 115l102 0 0-102-102 0z m179-115l128 0 0 128-128 0z m13 115l102 0 0-102-102 0z"></path>
-                    </svg>
-                </button>
-            </ul>
+            <div class="header-nav-list">
+                <ul><?=$menu?></ul>
+                <span class='header-nav-list-expand'>
+                    <button type="button" class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 512 512">
+                            <path d="M96 288l128 0 0 128-128 0z m13 115l102 0 0-102-102 0z m179 13l0-128 128 0 0 128z m115-115l-102 0 0 102 102 0z m-307-205l128 0 0 128-128 0z m13 115l102 0 0-102-102 0z m179-115l128 0 0 128-128 0z m13 115l102 0 0-102-102 0z"></path>
+                        </svg>
+                    </button>
+                </span>
+            </div>
         </div>
         
         <div class="header-icons">

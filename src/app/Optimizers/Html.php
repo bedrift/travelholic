@@ -10,6 +10,7 @@ class Html {
         $cache  = "/tmp/frontend." . $hash . ".html";
         
         if (file_exists($cache) == false || filesize($cache) == false) {
+            $output = $html;
             $minimizer = new HtmlMin();
             
             $minimizer->doRemoveComments();
@@ -28,6 +29,7 @@ class Html {
             
             $output = preg_replace("#\s+#"," ",$output);
             $output = str_replace(array("> @","} @"," </style>",";</style>","; "),array(">@","}@","</style>","</style>",";"),$output);
+            $output = preg_replace("#(xmlns=['\"]?.+?['\"]?) xmlns=['\"]?.+?['\" >]#","$1",$output);
             
             // remove unnessesary quotes around attribute values
             //$output = preg_replace("#( [a-z]+=)\"([^\"'`=<>\s]+?)\"([ >])#i","$1$2$3",$output);
