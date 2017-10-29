@@ -2,10 +2,8 @@
 
 namespace App\Optimizers;
 
-class Css {
+class Css extends OptimizerBase {
     function __invoke($folder,$url,$print = false) {
-        $hash           = null;
-        
         // external
         if (preg_match("#^(https?:)?\/\/(.+)$#",$url,$m)) {
             if ($m[1] == false) $url = "https:" . $url;
@@ -14,22 +12,24 @@ class Css {
         }
         // internal
         else {
-            $content    = file_get_contents($folder . ltrim($url,"/"));
-            $hash       = substr(md5($content),0,10);
+            $content    = file_get_contents($this->getAssetsFolder(true) . "/" . $folder . ltrim($url,"/"));
         }
         
-        $content        = preg_replace("#\s+#"," ",trim($content));
-        $content        = preg_replace("#\s*(\{|\}|;|\:|,)\s*#","$1",$content);
-        $content        = str_replace(" format(","format(",$content);
-        $content        = str_replace(";}","}",$content);
-        $content        = trim($content);
+        $optimized      = $content;
+        $optimized      = preg_replace("#\s+#"," ",trim($optimized));
+        $optimized      = preg_replace("#\s*(\{|\}|;|\:|,)\s*#","$1",$optimized);
+        $optimized      = str_replace(" format(","format(",$optimized);
+        $optimized      = str_replace(";}","}",$optimized);
+        $optimized      = trim($optimized);
         
-        if ($print) return $content;
+        if ($print) return $optimized;
         
-        $cache          = "assets/" . $hash . ".css";
+        $hash           = substr(md5($content),0,10);
+        $file           = $hash . ".css";
+        $cache          = $this->getAssetsFolder(true) . "/" . $cachefile;
         
-        if (file_exists($cache) == false || filesize($cache) == false) file_put_contents($cache,$content);
+        if (file_exists($cache) == false || filesize($cache) == false) file_put_contents($cache,$optimized);
         
-        return "/" . $cache;
+        return $this->getAssetsFolder() . "/" . $file;
     }
 }

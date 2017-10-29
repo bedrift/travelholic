@@ -1,6 +1,6 @@
 <?php
 
-$dev = true;
+$dev = (file_exists("../../.c9/project.settings"));
 
 if ($dev) {
     error_reporting(E_ALL);

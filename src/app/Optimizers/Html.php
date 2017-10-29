@@ -29,7 +29,8 @@ class Html {
             $output = preg_replace("#\s+#"," ",$output);
             $output = str_replace(array("> @","} @"," </style>"),array(">@","}@","</style>"),$output);
             
-            $output = preg_replace("#( [a-z]+=)\"([^\"'`=<>\s]+?)\"([ >])#i","$1$2$3",$output);
+            // remove unnessesary quotes around attribute values
+            //$output = preg_replace("#( [a-z]+=)\"([^\"'`=<>\s]+?)\"([ >])#i","$1$2$3",$output);
             
             file_put_contents($cache,$output);
         }

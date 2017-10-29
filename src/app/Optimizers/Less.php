@@ -4,9 +4,9 @@ namespace App\Optimizers;
 
 use \Less_Parser;
 
-class Less {
+class Less extends OptimizerBase {
     function __invoke($folder,$url,$print = false) {
-        $files  = glob($folder . trim(dirname($url),"/") . "/*.less");
+        $files  = glob($this->getRootFolder() . "/" . $folder . trim(dirname($url),"/") . "/*.less");
         
         $hash   = [];
         
@@ -14,13 +14,14 @@ class Less {
         
         $hash   = substr(md5(implode($hash)),0,10);
         
-        $cache  = "assets/" . $hash . ".css";
+        $file   = $hash . ".css";
+        $cache  = $this->getAssetsFolder(true) . "/" . $file;
         
         if (file_exists($cache) == false || filesize($cache) == false) {
             try {
                 $parser = new Less_Parser(['compress'=>true]);
                 
-                $parser->parseFile($folder . ltrim($url,"/"),$folder . trim(dirname($url),"/") . "/");
+                $parser->parseFile($this->getRootFolder(true) . "/" . $folder . ltrim($url,"/"),$this->getRootFolder(true) . "/" . $folder . trim(dirname($url),"/") . "/");
                 
                 $css = $parser->getCss();
                 
@@ -35,6 +36,6 @@ class Less {
         
         if ($print) return file_get_contents($cache);
         
-        return "/" . $cache;
+        return $this->getAssetsFolder() . "/" . $file;
     }
 }
