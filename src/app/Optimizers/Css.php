@@ -22,7 +22,7 @@ class Css extends OptimizerBase {
         $optimized      = str_replace(";}","}",$optimized);
         $optimized      = trim($optimized);
         
-        if ($print) return $optimized;
+        if ($print) return rtrim($optimized,";") . ";";
         
         $hash           = substr(md5($content),0,10);
         $file           = $hash . ".css";

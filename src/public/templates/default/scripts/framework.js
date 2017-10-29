@@ -1,6 +1,10 @@
 /* global $ */
 (function(w,n) {
     w[n].ready('framework',function() {
+        /* activate css transition */
+        $('body')
+            .removeClass('preload');
+        
         /* sign-in handling */
         $.signedIn = function() {
             if ($('body').hasClass('not-signed-in')) {

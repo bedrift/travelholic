@@ -6,11 +6,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="{page.description{Let Travelholic keep you updated with all relevant travels matched to your preferences.}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>WebFontConfig={google:{families:['Raleway:n4','Roboto:n4,n7']}}</script>
+    <script>WebFontConfig={google:{families:['Raleway:400','Roboto:400,700']}};(function(d,wf){wf=d.createElement('script'),s=d.scripts[0];wf.src='//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';wf.async=true;s.parentNode.insertBefore(wf,s)})(document)</script>
+    <style type="text/css"><?=$this->less("styles/essentials.less",true);?></style>
     <link rel="stylesheet" href="<?=$this->less("styles/main.less");?>">
 </head>
-<body itemscope itemtype="http://schema.org/WebPage" class="not-signed-in">
+<body itemscope itemtype="http://schema.org/WebPage" class="preload not-signed-in">
     <div id="menu">
         <div class="menu-toggles">
             <div class="menu-toggle menu-open">

@@ -1,5 +1,10 @@
+@import "./variables";
+
 html {
     box-sizing: border-box;
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
     *, *:before, *::before, *:after, *::after {
@@ -26,6 +31,13 @@ body {
     fill: @color;
     font-size: @fontsize;
     line-height: 1;
+    
+    &.preload * {
+      -webkit-transition: none !important;
+      -moz-transition: none !important;
+      -ms-transition: none !important;
+      -o-transition: none !important;
+    }
 }
 
 a {
@@ -34,6 +46,8 @@ a {
     color: inherit;
     text-decoration: none;
     transition: color .5s;
+    background-color: transparent; /* 1 */
+    -webkit-text-decoration-skip: objects; /* 2 */
 }
 
     a:hover {
@@ -50,11 +64,54 @@ h1, h2, h3, h4, h5, h6, h7 {
     font-family: @font-header;
     font-weight: normal;
     padding: 0;
+    margin: 10px 0 5px 0;
 }
 
 h1 {
     margin: 0 0 10px 0;
     font-size: 24px;
+}
+
+b,
+strong {
+  font-weight: inherit;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+[hidden] {
+  display: none;
 }
 
 .rotate90 {transform:rotate(90deg)}

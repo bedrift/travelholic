@@ -57,7 +57,7 @@ include("header.php");
             
             <div class="list-container">
                 <div class="list-item">
-                    test
+                    <strong>test</strong>
                 </div>
                 
                 <div class="list-item">

@@ -9,7 +9,7 @@ class Html {
         $hash   = md5($html);
         $cache  = "/tmp/frontend." . $hash . ".html";
         
-        if (true || file_exists($cache) == false || filesize($cache) == false) {
+        if (file_exists($cache) == false || filesize($cache) == false) {
             $minimizer = new HtmlMin();
             
             $minimizer->doRemoveComments();
@@ -27,7 +27,7 @@ class Html {
             $output = $minimizer->minify($html);
             
             $output = preg_replace("#\s+#"," ",$output);
-            $output = str_replace(array("> @","} @"," </style>"),array(">@","}@","</style>"),$output);
+            $output = str_replace(array("> @","} @"," </style>",";</style>","; "),array(">@","}@","</style>","</style>",";"),$output);
             
             // remove unnessesary quotes around attribute values
             //$output = preg_replace("#( [a-z]+=)\"([^\"'`=<>\s]+?)\"([ >])#i","$1$2$3",$output);
