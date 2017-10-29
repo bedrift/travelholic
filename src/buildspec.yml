@@ -20,10 +20,9 @@ phases:
       - php src/composer --no-interaction --working-dir=src --no-dev install
   post_build:
     commands:
-      #- zip -r source.zip src
+      #- 
 artifacts:
   files:
-    #- source.zip
     - src/**/*
   #discard-paths: yes
   #base-directory: location

@@ -1,5 +1,4 @@
-(function(w,n,i) {
-    w[n] = {
+(function(w,n,i) {w[n] = {
         /* list */
         l: {
             'jquery': {

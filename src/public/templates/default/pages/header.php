@@ -6,10 +6,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="{page.description{Let Travelholic keep you updated with all relevant travels matched to your preferences.}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <style type="text/css">
-        <?=$this->css("//fonts.googleapis.com/css?family=Raleway:300,500,700",true); ?>
-        <?=$this->css("//fonts.googleapis.com/css?family=Roboto:300,500,700",true); ?>
-    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>WebFontConfig={google:{families:['Raleway:n4','Roboto:n4,n7']}}</script>
     <link rel="stylesheet" href="<?=$this->less("styles/main.less");?>">
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="not-signed-in">

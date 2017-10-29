@@ -12,7 +12,7 @@ class Less extends OptimizerBase {
         
         foreach($files as $f) $hash[] = md5_file($f);
         
-        $hash   = substr(md5(implode($hash)),0,10);
+        $hash   = substr(md5($url . implode($hash)),0,10);
         
         $file   = $hash . ".css";
         $cache  = $this->getAssetsFolder(true) . "/" . $file;
@@ -21,7 +21,7 @@ class Less extends OptimizerBase {
             try {
                 $parser = new Less_Parser(['compress'=>true]);
                 
-                $parser->parseFile($this->getRootFolder(true) . "/" . $folder . ltrim($url,"/"),$this->getRootFolder(true) . "/" . $folder . trim(dirname($url),"/") . "/");
+                $parser->parseFile($this->getRootFolder(true) . "/" . $folder . ltrim($url,"/"),$folder . trim(dirname($url),"/") . "/");
                 
                 $css = $parser->getCss();
                 
@@ -29,8 +29,6 @@ class Less extends OptimizerBase {
             }
             catch(Exception $e) {
                 $error_message = $e->getMessage();
-                
-                $cache = $url;
             }
         }
         
