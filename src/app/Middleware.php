@@ -2,7 +2,7 @@
 
 namespace App;
 
-use \Psr\Http\Message\{
+use Psr\Http\Message\{
     ServerRequestInterface as Request,
     ResponseInterface as Response
 };
@@ -12,6 +12,13 @@ class Middleware {
     // Middleware is executed with first added Middleware runned last, and last added first for Requests
     
     function __invoke($app) {
+        // prevent crawlers outside production env.
+        $app->add(function(Request $request, Response $response, callable $next) {
+            if ($request->getEnvParam("APP_ENV","development") != "production") $response = $response->withHeader("X-Robots-Tag","noindex, nofollow");
+            
+            return $next($request, $response);
+        });
+        
         // translate URLs and fetch data from API
         $app->add(function(Request $request, Response $response, callable $next) {
             $api        = new Api\Url();

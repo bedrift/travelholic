@@ -41,8 +41,6 @@ class View {
     }
     
     function render(Response $response,$template,array $args = []) {
-        if (($_ENV["APP_ENV"] ?? "development") != "production") header("X-Robots-Tag: noindex");
-        
         if (preg_match("#^(.+)\.(php|phtml)$#",$template,$m)) $template = $m[1];
         
         $output             = $this->fetch($template,$args);
