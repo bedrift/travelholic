@@ -14,7 +14,7 @@ class Middleware {
     function __invoke($app) {
         // prevent crawlers outside production env.
         $app->add(function(Request $request, Response $response, callable $next) {
-            if ($request->getEnvParam("APP_ENV","development") != "production") $response = $response->withHeader("X-Robots-Tag","noindex, nofollow");
+            if ($request->getServerParam("APP_ENV","development") != "production") $response = $response->withHeader("X-Robots-Tag","noindex, nofollow");
             
             return $next($request, $response);
         });
