@@ -2,18 +2,36 @@
 
 #sudo sed -i -- 's/workspace/workspace\/src\/public/g' /etc/apache2/sites-enabled/001-cloud9.conf
 
-sudo add-apt-repository ppa:ondrej/php -y
-sudo apt-get update -y
+#sudo apt-get update
+#sudo apt-get install libmcrypt-dev
+
+#curl -L -O https://github.com/phpbrew/phpbrew/raw/master/phpbrew
+#chmod +x phpbrew
+#sudo mv phpbrew /usr/local/bin/
+sudo phpbrew init
+
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+phpbrew lookup-prefix ubuntu
+
+phpbrew install 7.1.7 +default
+phpbrew switch php-7.1.7
+phpbrew use php-7.1.7
+
+php -v
+
+#sudo add-apt-repository ppa:ondrej/php -y
+#sudo apt-get update -y
  
-sudo apt-get install php7.1-xdebug php7.1-curl php7.1-cli php7.1-dev php7.1-gd php7.1-intl php7.1-mcrypt php7.1-json php7.1-mysql php7.1-opcache php7.1-bcmath php7.1-mbstring php7.1-soap php7.1-xml php7.1-zip -y
+#sudo apt-get install php7.1-xdebug php7.1-curl php7.1-cli php7.1-dev php7.1-gd php7.1-intl php7.1-mcrypt php7.1-json php7.1-mysql php7.1-opcache php7.1-bcmath php7.1-mbstring php7.1-soap php7.1-xml php7.1-zip -y
  
-sudo mv /etc/apache2/envvars /etc/apache2/envvars.bak
-sudo apt-get remove libapache2-mod-php5 -y
-sudo apt-get install libapache2-mod-php7.1 -y
-sudo cp /etc/apache2/envvars.bak /etc/apache2/envvars
+#sudo mv /etc/apache2/envvars /etc/apache2/envvars.bak
+#sudo apt-get remove libapache2-mod-php5 -y
+#sudo apt-get install libapache2-mod-php7.1 -y
+#sudo cp /etc/apache2/envvars.bak /etc/apache2/envvars
  
-sudo a2dismod php5
-sudo a2enmod php7.1
+#sudo a2dismod php5
+#sudo a2enmod php7.1
 
 sudo a2enmod expires
 sudo a2enmod deflate
