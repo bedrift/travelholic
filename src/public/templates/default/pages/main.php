@@ -61,7 +61,7 @@ include("header.php");
                 </div>
                 
                 <div class="list-item">
-                    test
+                    test<span class="icon icon-trash"></span>
                 </div>
             </div>
         </div>

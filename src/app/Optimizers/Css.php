@@ -12,7 +12,7 @@ class Css extends OptimizerBase {
         }
         // internal
         else {
-            $content    = file_get_contents($this->getAssetsFolder(true) . "/" . $folder . ltrim($url,"/"));
+            $content    = file_get_contents($this->getRootFolder(true) . "/" . $folder . ltrim($url,"/"));
         }
         
         $optimized      = $content;
@@ -26,7 +26,7 @@ class Css extends OptimizerBase {
         
         $hash           = substr(md5($content),0,10);
         $file           = $hash . ".css";
-        $cache          = $this->getAssetsFolder(true) . "/" . $cachefile;
+        $cache          = $this->getAssetsFolder(true) . "/" . $file;
         
         if (file_exists($cache) == false || filesize($cache) == false) file_put_contents($cache,$optimized);
         

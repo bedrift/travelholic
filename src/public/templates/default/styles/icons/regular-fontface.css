@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "essential-regular";
+  src:url("/templates/default/styles/icons/essential-regular.eot");
+  src:url("/templates/default/styles/icons/essential-regular.eot?#iefix") format("embedded-opentype"),
+      url("/templates/default/styles/icons/essential-regular.woff") format("woff"),
+      url("/templates/default/styles/icons/essential-regular.ttf") format("truetype"),
+      url("/templates/default/styles/icons/essential-regular.svg#essential-regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
