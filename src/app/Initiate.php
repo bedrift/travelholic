@@ -2,13 +2,13 @@
 
 namespace App;
 
+use \Slim\App;
+
 class Initiate {
     function __invoke(array $settings = []) {
-        $dev    = $settings["dev"]?? false;
+        $dev    = (($_ENV["APP_ENV"] ?? "development") == "development");
         
-        unset($settings["dev"]);
-        
-        $app = new \Slim\App([
+        $app = new App([
             'settings' => array_merge(
                 $settings,
                 [

@@ -1,18 +1,13 @@
 <?php
 
-header("X-Robots-Tag: noindex"); // remember to remove header in CloudFront prod.
+require("../vendor/autoload.php");
 
-$dev = (file_exists("../../.c9/project.settings"));
-
-if ($dev) {
+if (!isset($_ENV["APP_ENV"])) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
 
-require("../vendor/autoload.php");
-
 $app = (new \App\Initiate)([
-    "dev" => $dev,
     "language" => "en",
     "languages" => ['en','da'], // supported languages
     "country" => "dk", // CloudFront-Viewer-Country (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)

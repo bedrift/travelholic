@@ -55,7 +55,8 @@ include("header.php");
                 <input id="search" type="text" placeholder="What do you need?">
             </div>
             
-            <div class="list-container">
+            <div class="list-container" data-load="<?=htmlspecialchars(json_encode(array("type" => "places", "items" => array(array("name" => "France"),array("name" => "London")))),ENT_QUOTES,'UTF-8')?>">
+                <!-- items loades via data-load, hvor data hentes via API og er landespecifikt (10 mest populære i et land)
                 <div class="list-item">
                     <strong>test</strong>
                 </div>
@@ -63,6 +64,7 @@ include("header.php");
                 <div class="list-item">
                     test<span class="icon icon-trash"></span>
                 </div>
+                -->
             </div>
         </div>
         

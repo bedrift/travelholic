@@ -54,4 +54,10 @@ button, a.btn {
             transition: color .2s, fill .2s;
         }
     }
+    
+    &:not(.btn-icon) + &:not(.btn-icon) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-left: -2px;
+    }
 }
